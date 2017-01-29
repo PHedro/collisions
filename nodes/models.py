@@ -40,6 +40,18 @@ class CollisionNode(models.Model):
             _node.collisions.add(*_collisions)
             _node.save()
 
+    @classmethod
+    def is_same_network(cls, node_1, node_2):
+        result = node_1.collisions.filter(pk=node_2.pk).exists()
+        if not result:
+            result = node_1.collisions.filter(
+                pk__in=node_2.collisions.all().values_list(
+                    'pk', flat=True
+                ).distinct()
+            ).exists()
+
+        return result
+
     def add_collision(self, collision_node):
         if not self.collisions.filter(pk=collision_node.pk).exists():
             self.collisions.add(collision_node)

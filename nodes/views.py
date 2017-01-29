@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from nodes.models import CollisionNode
+from nodes.serializers import CollisionNodeSerializer
+
+
+class NodeViewSet(viewsets.ModelViewSet):
+    queryset = CollisionNode.objects.all()
+    serializer_class = CollisionNodeSerializer
+    lookup_field = 'identificador'
