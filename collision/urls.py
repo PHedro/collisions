@@ -17,10 +17,11 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
 
-from nodes.views import NodeViewSet
+from nodes.views import NodeViewSet, EdgeViewSet
 
 router = routers.DefaultRouter()
-router.register(r'colisoes', NodeViewSet)
+router.register(r'nodes', NodeViewSet)
+router.register(r'edges', EdgeViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
